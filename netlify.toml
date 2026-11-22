@@ -1,0 +1,15 @@
+# Configuración de despliegue en Netlify para Next.js (App Router).
+# Sin este archivo, Netlify puede publicar la app como sitio estático y devolver
+# "Page not found" al recargar cualquier ruta que no sea la inicial.
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Runtime oficial de Netlify para Next.js: ejecuta las rutas del servidor
+# (páginas dinámicas, acciones del servidor, /admin) como funciones.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
