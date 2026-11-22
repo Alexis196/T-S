@@ -35,7 +35,8 @@ export default async function PedidosPage({ searchParams }: PageProps<"/admin">)
           {all.length === 0 ? "Todavía no hay pedidos." : "No hay pedidos con ese estado."}
         </p>
       ) : (
-        <div className="mt-6 overflow-x-auto rounded-2xl bg-white shadow-sm">
+        <>
+        <div className="mt-6 hidden overflow-x-auto rounded-2xl bg-white shadow-sm md:block">
           <table className="w-full min-w-[760px] text-left text-sm">
             <thead className="border-b border-line text-xs uppercase tracking-wide text-muted">
               <tr>
@@ -87,6 +88,30 @@ export default async function PedidosPage({ searchParams }: PageProps<"/admin">)
             </tbody>
           </table>
         </div>
+
+        {/* Móvil: tarjetas en lugar de tabla */}
+        <ul className="mt-6 space-y-3 md:hidden">
+          {orders.map((o) => (
+            <li key={o.number} className="rounded-2xl bg-white p-4 shadow-sm">
+              <div className="flex items-center justify-between">
+                <span className="text-lg font-extrabold">#{o.number}</span>
+                <span className={`rounded-full px-3 py-1 text-xs font-bold ${STATUS_STYLE[o.status]}`}>{STATUS_LABEL[o.status]}</span>
+              </div>
+              <p className="mt-2 font-semibold">{o.customer.nombre} {o.customer.apellido}</p>
+              <p className="text-sm text-muted">DNI {o.customer.dni} · {o.customer.localidad} ({o.customer.codigoPostal})</p>
+              <p className="text-sm text-muted">
+                {new Date(o.createdAt).toLocaleString("es-AR", { dateStyle: "short", timeStyle: "short" })}
+              </p>
+              <p className="mt-1 text-lg font-extrabold">{formatPrice(o.total)}</p>
+              <div className="mt-3 flex flex-wrap gap-2 text-sm">
+                <Link href={`/admin/pedidos/${o.number}`} className="inline-flex items-center gap-1.5 rounded-lg border-2 border-line px-3 py-2 font-bold"><Eye size={14} /> Ver</Link>
+                <Link href={`/admin/pedidos/${o.number}?imprimir=1`} className="inline-flex items-center gap-1.5 rounded-lg bg-brand px-3 py-2 font-bold text-white"><Printer size={14} /> Factura</Link>
+                <Link href={`/admin/pedidos/${o.number}/ticket?imprimir=1`} className="inline-flex items-center gap-1.5 rounded-lg bg-slate-800 px-3 py-2 font-bold text-white"><Tag size={14} /> Ticket</Link>
+              </div>
+            </li>
+          ))}
+        </ul>
+        </>
       )}
     </>
   );

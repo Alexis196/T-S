@@ -27,7 +27,7 @@ export default async function AdminProductosPage({ searchParams }: PageProps<"/a
         </p>
       )}
 
-      <div className="mt-6 overflow-x-auto rounded-2xl bg-white shadow-sm">
+      <div className="mt-6 hidden overflow-x-auto rounded-2xl bg-white shadow-sm md:block">
         <table className="w-full min-w-[640px] text-left text-sm">
           <thead className="border-b border-line text-xs uppercase tracking-wide text-muted">
             <tr>
@@ -74,6 +74,33 @@ export default async function AdminProductosPage({ searchParams }: PageProps<"/a
           </tbody>
         </table>
       </div>
+
+      {/* Móvil: tarjetas en lugar de tabla */}
+      <ul className="mt-6 space-y-3 md:hidden">
+        {products.map((p) => (
+          <li key={p.slug} className="rounded-2xl bg-white p-4 shadow-sm">
+            <div className="flex items-center gap-3">
+              <ProductImage product={p} className="h-16 w-16 shrink-0 rounded-lg" />
+              <div className="min-w-0">
+                <p className="flex items-center gap-1.5 font-bold">
+                  <span className="truncate">{p.name}</span>
+                  {p.featured && <Star size={14} className="shrink-0 fill-amber-400 text-amber-400" aria-label="Destacado" />}
+                </p>
+                <p className="text-xs text-muted">{p.category} · {p.size}</p>
+                <p className="font-extrabold">{formatPrice(p.price)}</p>
+              </div>
+            </div>
+            <div className="mt-3 flex gap-2 text-sm">
+              <Link href={`/admin/productos/${p.slug}`} className="inline-flex items-center gap-1.5 rounded-lg border-2 border-line px-3 py-2 font-bold"><Pencil size={14} /> Editar</Link>
+              <form action={deleteProductAction.bind(null, p.slug)}>
+                <ConfirmButton message={`¿Eliminar "${p.name}"? Esta acción no se puede deshacer.`} className="inline-flex items-center gap-1.5 rounded-lg border-2 border-line px-3 py-2 font-bold hover:border-red-500 hover:text-red-600">
+                  <Trash2 size={14} /> Eliminar
+                </ConfirmButton>
+              </form>
+            </div>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }

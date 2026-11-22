@@ -73,8 +73,8 @@ export default async function PedidoPage({ params, searchParams }: PageProps<"/a
         <p className="border border-b-0 border-black py-1 text-center text-xs font-bold tracking-widest">ORIGINAL</p>
 
         {/* Cabecera: comercio | letra | comprobante */}
-        <header className="relative grid grid-cols-[1fr_1fr] border border-black">
-          <div className="border-r border-black p-3 pr-12">
+        <header className="relative grid grid-cols-1 border border-black sm:grid-cols-2">
+          <div className="border-b border-black p-3 sm:border-b-0 sm:border-r sm:pr-12">
             <Image src="/logo.jpg" alt="T&S Distribuidora" width={852} height={780} unoptimized className="h-14 w-auto" />
             <p className="mt-1 text-sm font-extrabold">{BUSINESS.razonSocial}</p>
             <p className="mt-1">
@@ -89,12 +89,12 @@ export default async function PedidoPage({ params, searchParams }: PageProps<"/a
           </div>
 
           {/* Cuadro con la letra del comprobante */}
-          <div className="absolute left-1/2 top-0 w-14 -translate-x-1/2 border-x border-b border-black bg-white text-center">
+          <div className="mx-auto w-14 border-x border-b border-black bg-white text-center sm:absolute sm:left-1/2 sm:top-0 sm:-translate-x-1/2">
             <p className="text-3xl font-extrabold leading-none pt-1">{DOCUMENT_LETTER}</p>
             <p className="pb-1 text-[8px] font-bold leading-tight">COD. 00</p>
           </div>
 
-          <div className="p-3 pl-12">
+          <div className="p-3 sm:pl-12">
             <p className="text-xl font-extrabold leading-tight">PEDIDO</p>
             <p className="mt-1 text-sm font-bold">N° {numero}</p>
             {item("Fecha de emisión", fecha)}
@@ -106,7 +106,7 @@ export default async function PedidoPage({ params, searchParams }: PageProps<"/a
 
         {/* Datos del cliente (compactos) */}
         <section className="mt-2 border border-black px-3 py-2">
-          <div className="grid grid-cols-[1.6fr_1fr] gap-x-6 gap-y-0.5">
+          <div className="grid grid-cols-1 gap-x-6 gap-y-0.5 sm:grid-cols-[1.6fr_1fr]">
             {item("Apellido y nombre", `${c.apellido} ${c.nombre}`)}
             {item("DNI", c.dni)}
             {item("Domicilio", c.direccion)}

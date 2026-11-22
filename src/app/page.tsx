@@ -40,7 +40,8 @@ export default async function Home() {
           sizes="100vw"
           className="-z-20 object-cover object-[70%_62%]"
         />
-        <div className="absolute inset-0 -z-10 bg-linear-to-r from-white from-30% via-white/55 via-55% to-white/0" />
+        <div className="absolute inset-0 -z-10 bg-white/75 md:hidden" />
+        <div className="absolute inset-0 -z-10 hidden bg-linear-to-r from-white from-30% via-white/55 via-55% to-white/0 md:block" />
         <div className="mx-auto flex min-h-[340px] max-w-7xl items-center px-4 py-14 md:min-h-[420px]">
           <div className="max-w-xl">
             <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl">
